@@ -6,7 +6,20 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+    # 환경 자동 감지
+    if "DJANGO_SETTINGS_MODULE" not in os.environ:
+        # AWS/운영 환경 감지
+        if (
+            os.path.exists("/opt/bitnami")  # AWS Lightsail Bitnami
+            or os.path.exists("/home/ubuntu")  # AWS EC2 Ubuntu
+            or os.environ.get("AWS_EXECUTION_ENV")  # AWS Lambda
+            or os.environ.get("SERVER_SOFTWARE", "").startswith("gunicorn")
+        ):  # 운영 서버
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.prod")
+        else:
+            # 로컬 개발 환경
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

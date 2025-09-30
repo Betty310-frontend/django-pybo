@@ -3,7 +3,7 @@ from .base import *
 # 개발 환경 설정
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = []
 
 # 개발용 데이터베이스 (SQLite)
 DATABASES = {
