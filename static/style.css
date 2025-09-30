@@ -1,0 +1,13 @@
+.no-resize {
+    resize: none;
+}
+
+.btn-xs {
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+}
+
+.w-45 {
+    width: 45%
+}

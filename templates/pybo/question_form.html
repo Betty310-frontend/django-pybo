@@ -1,0 +1,40 @@
+<!-- TODO: 마크다운 에디터 적용 (simpleMDE) -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">질문 등록</h5>
+    <form method="post">
+        {% csrf_token %}
+        <!-- 오류 표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류 표시 End -->
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                value="{{ form.subject.value|default_if_none:''}}" required />
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea name="content" id="content" class="form-control no-resize" rows="10"
+                required>{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">저장하기</button>
+            <a href="{% url 'pybo:index' %}" class="btn btn-secondary">취소</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
