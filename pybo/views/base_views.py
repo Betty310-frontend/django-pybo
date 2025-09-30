@@ -4,9 +4,13 @@ from django.db.models import Q, F
 
 from ..models import Question
 
+import logging
+
+logger = logging.getLogger("pybo")
+
 
 def index(request):
-    3 / 0
+    logger.info("INFO 레벨로 출력")
     page = request.GET.get("page", "1")
     kw = request.GET.get("kw", "")
     sort_by = request.GET.get("sort", "-create_date")
