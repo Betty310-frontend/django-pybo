@@ -6,18 +6,13 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # 환경 자동 감지
+    # 환경 변수 DJANGO_ENV로 구분 (없으면 development가 기본)
+    django_env = os.environ.get("DJANGO_ENV", "development")
+
     if "DJANGO_SETTINGS_MODULE" not in os.environ:
-        # AWS/운영 환경 감지
-        if (
-            os.path.exists("/opt/bitnami")  # AWS Lightsail Bitnami
-            or os.path.exists("/home/ubuntu")  # AWS EC2 Ubuntu
-            or os.environ.get("AWS_EXECUTION_ENV")  # AWS Lambda
-            or os.environ.get("SERVER_SOFTWARE", "").startswith("gunicorn")
-        ):  # 운영 서버
+        if django_env == "production":
             os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.prod")
         else:
-            # 로컬 개발 환경
             os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 
     try:
