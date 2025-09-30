@@ -27,3 +27,8 @@ urlpatterns = [
     path("pybo/", include("pybo.urls")),
     path("", base_views.index, name="index"),  # 루트 URL도 pybo로 연결
 ]
+
+handler404 = "common.views.page_not_found"
+handler500 = "common.views.server_error"
+handler403 = "common.views.permission_denied"
+handler400 = "common.views.bad_request"
