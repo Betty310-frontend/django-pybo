@@ -6,6 +6,7 @@ from ..models import Question
 
 
 def index(request):
+    3 / 0
     page = request.GET.get("page", "1")
     kw = request.GET.get("kw", "")
     sort_by = request.GET.get("sort", "-create_date")
